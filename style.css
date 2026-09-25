@@ -1,0 +1,166 @@
+/* Layout modelled on a two-column academic page: fixed name column on the left,
+   content on the right, single serif face, maroon links. */
+
+:root {
+  --text: #000000;
+  --name: #1f1815;
+  --muted: #8a8a8a;
+  --link: #800000;
+  --rule: #efefef;
+  --bg: #ffffff;
+  --side: 35%;
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Libertinus Serif", "Linux Libertine O", "Linux Libertine", "Palatino Linotype", Georgia, serif;
+  font-size: 14pt;
+  line-height: 1.75;
+}
+
+a {
+  color: var(--link);
+  text-decoration: none;
+  border-bottom: 1px dotted;
+  transition: border-color 0.2s ease-in-out;
+}
+a:hover { border-bottom-color: transparent; }
+
+p { margin: 0 0 1.5em; }
+
+/* Left column */
+#side {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: var(--side);
+  height: 100%;
+  overflow-y: auto;
+  padding: 5em 4em 3em;
+  text-align: right;
+}
+
+#side .avatar {
+  display: block;
+  width: 180px;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  margin: 0 0 1.5em auto;
+  background: #f2f2f2;
+}
+
+#side h1 {
+  margin: 0 0 0.9em;
+  font-size: 1.35em;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--name);
+}
+
+#side .position {
+  margin: 0 0 2em;
+  color: var(--muted);
+}
+
+#side nav, #side .links { margin: 0 0 2em; }
+#side nav a, #side .links a { display: inline-block; }
+#side nav a.current { color: var(--text); border-bottom-color: transparent; }
+
+/* Right column */
+#main {
+  margin-left: var(--side);
+  max-width: 54em;
+  padding: 5em 4em 4em;
+}
+
+#main > section {
+  border-top: 2px solid var(--rule);
+  margin-top: 3em;
+  padding-top: 3em;
+}
+#main > section:first-child {
+  border-top: 0;
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h2 {
+  font-size: 1.35em;
+  font-weight: 400;
+  margin: 0 0 1.2em;
+}
+
+/* Papers */
+.paper { margin-bottom: 2em; }
+.paper:last-child { margin-bottom: 0; }
+
+.paper .title { margin: 0; font-weight: 600; }
+.paper .title a { color: var(--link); }
+.paper .authors { margin: 0; color: var(--muted); }
+.paper .presented { margin: 0; color: var(--muted); font-size: 0.9em; }
+
+details { margin-top: 0.3em; }
+details summary {
+  cursor: pointer;
+  color: var(--link);
+  font-size: 0.9em;
+  width: fit-content;
+  list-style: none;
+}
+details summary::-webkit-details-marker { display: none; }
+details summary::before { content: "+ "; }
+details[open] summary::before { content: "\2212  "; }
+details p {
+  margin: 0.5em 0 0;
+  font-size: 0.92em;
+  line-height: 1.65;
+  text-align: justify;
+  hyphens: auto;
+}
+
+/* References */
+ul.refs { list-style: none; padding: 0; margin: 0; }
+ul.refs li { margin-bottom: 1em; }
+ul.refs span { color: var(--muted); }
+
+footer {
+  margin-top: 4em;
+  font-size: 0.8em;
+  color: var(--muted);
+}
+
+/* Large screens */
+@media (max-width: 1280px) {
+  :root { --side: 30%; }
+  #side { padding: 4em 3em 3em; }
+  #main { max-width: none; padding: 4em 3em 3em; }
+}
+
+/* Tablets and phones: name column becomes a centred block at the top */
+@media (max-width: 980px) {
+  #side {
+    position: static;
+    width: 100%;
+    height: auto;
+    padding: 4em 2em 1em;
+    text-align: center;
+  }
+  #side .avatar { width: 140px; margin: 0 auto 1.2em; }
+  #side nav a, #side .links a { margin: 0 0.5em; }
+  #side nav br, #side .links br { display: none; }
+  #main { margin-left: 0; padding: 2em 2em 3em; }
+}
+
+@media (max-width: 736px) {
+  body { font-size: 12.5pt; }
+  #side { padding: 2.5em 16px 0.5em; }
+  #main { padding: 1.5em 16px 2em; }
+  #main > section { margin-top: 2em; padding-top: 2em; }
+  details p { text-align: left; }
+}
